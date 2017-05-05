@@ -1,0 +1,22 @@
+
+<h1>Listing Tweets</h1>
+<table>
+	<tr>
+		<th>Status</th>
+		<th>User</th>
+	</tr>
+<% tweets = Tweet.all %>
+<% Tweet.all.each do |tweet|  %>
+	<tr>
+		<td><%= link_to tweet.text, tweet %></td>
+		<td><%= link_to tweet.user.name, tweet.user %></td>
+		<% if session[:user_id] == tweet.user_id %>
+		<td><%= link_to "edit", edit_tweet_path(tweet) %></td>
+  	<td><%= link_to "Destroy", clear_path(tweet.id, tweet), method: :delete, data: {confirm: "You sure?"}%></td>
+		<% end %>
+	</tr>
+<% end %>
+<% if tweets.size == 0%>
+	<em>No tweets found</em>
+<% end %>
+</table>
